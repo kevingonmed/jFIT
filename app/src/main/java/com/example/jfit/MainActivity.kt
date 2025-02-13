@@ -29,7 +29,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun WorkoutApp() {
-    val exercises = listOf("Push-ups", "Squats", "Lunges", "Plank", "Jumping Jacks")
+    //List to modify the list of exercise
+    val exercises = listOf("Push-ups", "Squats", "Lunges", "Plank", "Jumping Jacks", "Upper Body")
 
     // Used rememberSaveable instead of remember as it is deprecated in material3
     var currentExercise by rememberSaveable { mutableStateOf<String?>(null) }
@@ -37,7 +38,7 @@ fun WorkoutApp() {
     // Background Image
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(id = R.drawable.image2), // Use your image
+            painter = painterResource(id = R.drawable.background), // Use your image
             contentDescription = "Background Image",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
@@ -105,7 +106,7 @@ fun WorkoutApp() {
 
             currentExercise?.let {
                 Spacer(modifier = Modifier.height(16.dp))
-                Text("Current Exercise: $it", style = MaterialTheme.typography.bodyLarge)
+                Text("Current Exercise: $it", style = MaterialTheme.typography.bodyLarge, color= Color.White)
             }
         }
     }
