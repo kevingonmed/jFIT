@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun WorkoutApp() {
     //List to modify the list of exercise
-    val exercises = listOf("Push-ups", "Squats", "Lunges", "Plank", "Jumping Jacks", "Upper Body")
+    val exercises = listOf("BICEPS", "LEGS", "CHEST", "BACK", "SHOULDERS", "TRICEPS")
 
     // Used rememberSaveable instead of remember as it is deprecated in material3
     var currentExercise by rememberSaveable { mutableStateOf<String?>(null) }
