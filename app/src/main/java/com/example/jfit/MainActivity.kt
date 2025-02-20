@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
                 }
                 composable("exercise_screen/{exerciseName}") { backStackEntry ->
                     val exerciseName = backStackEntry.arguments?.getString("exerciseName")
-                    ExerciseScreen(exerciseName = exerciseName)
+                    ExerciseScreen(navController = navController, exerciseName = exerciseName)
                 }
             }
         }
@@ -125,19 +125,48 @@ fun WorkoutApp(navController: NavHostController) {
 
 //Second Screen
 @Composable
-fun ExerciseScreen(exerciseName: String?) {
-    Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = "Second Screen ",
-            style = MaterialTheme.typography.headlineLarge,
-            color = Color.Black
-        )
+fun ExerciseScreen(navController: NavHostController, exerciseName: String?) {
+   val workouts = listOf(
+       "Barbell Preacher Curl" to R.drawable.barbell_preacher_curl,
+       "Dumbbell Concentration Curl" to R.drawable.dumbbell_concentration_curl,
+       "Inclined Dumbbell Curl" to R.drawable.inclined_dumbbell_curl,
+       "Cable Biceps Curl" to R.drawable.cable_biceps_curl
+   )
+    Column(modifier = Modifier.fillMaxSize().padding(16.dp)){
+        Text(text = exerciseName ?: "Workout", style = MaterialTheme.typography.headlineLarge)
+        Spacer(modifier = Modifier.height(16.dp))
+
+        workouts.forEach { (workoutName, imageRes) ->
+            Card (modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+                .clickable { navController.navigate("workout_detail/$workoutName")},
+                colors = CardDefaults.cardColors(containerColor = Color.Gray.copy(alpha = 0.8f))
+            ) {
+                Column {
+                    Image(
+                        painter = painterResource(id = imageRes),
+                        contentDescription = workoutName,
+                        modifier = Modifier.fillMaxWidth(),
+                        contentScale = ContentScale.Crop,
+                    )
+
+                    Text(
+                        text = workoutName,
+                        modifier = Modifier.padding(16.dp),
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = Color.White
+                    )
+                }
+
+            }
+
+        }
+
     }
 }
+
+
 
 //Third Screen
 @Composable
