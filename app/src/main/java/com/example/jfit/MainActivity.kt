@@ -22,6 +22,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
 import androidx.navigation.NavHostController
+// New import fro video and third screen navigation
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.foundation.border
+import android.content.Intent
+import android.net.Uri
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +44,9 @@ class MainActivity : ComponentActivity() {
                     val exerciseName = backStackEntry.arguments?.getString("exerciseName")
                     ExerciseScreen(navController = navController, exerciseName = exerciseName)
                 }
+                composable("video_screen") {
+                    VideoScreen()
+                }
             }
         }
     }
@@ -50,6 +59,14 @@ fun WorkoutApp(navController: NavHostController) {
 
     // Used rememberSaveable instead of remember as it is deprecated in material3
     var currentExercise by rememberSaveable { mutableStateOf<String?>(null) }
+    //Third screen this button will allow to navigate to my video screen
+    Spacer(modifier = Modifier.height(16.dp))
+    Button(
+        onClick = { navController.navigate("video_screen") },
+        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+    ) {
+        Text("Go to Video Screen", color = Color.White)
+    }
 
     // Background Image
     Box(modifier = Modifier.fillMaxSize()) {
@@ -170,16 +187,35 @@ fun ExerciseScreen(navController: NavHostController, exerciseName: String?) {
 
 //Third Screen
 @Composable
-fun SettingsScreen() {
+fun VideoScreen() {
+    val context = LocalContext.current
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Top
     ) {
+        // Upper half: square placeholder for the video.
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f)
+                .border(width = 2.dp, color = Color.Gray),
+            contentAlignment = Alignment.Center
+        ) {
+            Text("Video Placeholder", style = MaterialTheme.typography.bodyLarge)
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        // Middle: clickable text link that opens a YouTube video.
         Text(
-            text = "Welcome to the Settings Screen!",
-            style = MaterialTheme.typography.headlineLarge,
-            color = Color.Black
+            text = "Watch video on YouTube",
+            style = MaterialTheme.typography.bodyLarge.copy(color = Color.Blue),
+            modifier = Modifier.clickable {
+                val youtubeUrl = "https://www.youtube.com/watch?v=YOUR_VIDEO_ID" // Replace with your actual URL.
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
+                context.startActivity(intent)
+            }
         )
     }
 }
