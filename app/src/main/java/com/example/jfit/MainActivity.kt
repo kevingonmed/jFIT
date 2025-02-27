@@ -215,7 +215,7 @@ fun VideoScreen() {
                 val youtubeUrl = "https://www.youtube.com/watch?v=YOUR_VIDEO_ID" // Replace with your actual URL.
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
                 context.startActivity(intent)
-            } // As of now we're going to replace the URL - With Gift images. In addition, I will adding a go back bottom alongside a workout complete that change color if the workout is complete.
+            }
         )
     }
 }
