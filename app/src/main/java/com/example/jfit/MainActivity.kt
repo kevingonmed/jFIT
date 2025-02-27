@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -27,6 +28,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.border
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.foundation.lazy.items
+
 
 
 class MainActivity : ComponentActivity() {
@@ -57,7 +61,7 @@ fun WorkoutApp(navController: NavHostController) {
     // List to modify the list of exercise
     val exercises = listOf("BICEPS", "LEGS", "CHEST", "BACK", "SHOULDERS", "TRICEPS")
 
-    // Used rememberSaveable instead of remember as it is deprecated in material3
+    // Used remember Saveable instead of remember as it is deprecated in material3
     var currentExercise by rememberSaveable { mutableStateOf<String?>(null) }
     //Third screen this button will allow to navigate to my video screen
     Spacer(modifier = Modifier.height(16.dp))
@@ -143,46 +147,64 @@ fun WorkoutApp(navController: NavHostController) {
 //Second Screen
 @Composable
 fun ExerciseScreen(navController: NavHostController, exerciseName: String?) {
-   val workouts = listOf(
-       "Barbell Preacher Curl" to R.drawable.barbell_preacher_curl,
-       "Dumbbell Concentration Curl" to R.drawable.dumbbell_concentration_curl,
-       "Inclined Dumbbell Curl" to R.drawable.inclined_dumbbell_curl,
-       "Cable Biceps Curl" to R.drawable.cable_biceps_curl
-   )
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)){
-        Text(text = exerciseName ?: "Workout", style = MaterialTheme.typography.headlineLarge)
+    val workouts = listOf(
+        "Barbell Preacher Curl" to R.drawable.barbell_preacher_curl,
+        "Dumbbell Concentration Curl" to R.drawable.dumbbell_concentration_curl,
+        "Inclined Dumbbell Curl" to R.drawable.inclined_dumbbell_curl,
+        "Cable Biceps Curl" to R.drawable.cable_biceps_curl
+    )
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        Text(text = exerciseName ?: "Workout",
+            style = MaterialTheme.typography.headlineMedium,
+            fontWeight = FontWeight.SemiBold,
+            fontFamily = FontFamily.Serif
+        )
         Spacer(modifier = Modifier.height(16.dp))
 
-        workouts.forEach { (workoutName, imageRes) ->
-            Card (modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
-                .clickable { navController.navigate("workout_detail/$workoutName")},
-                colors = CardDefaults.cardColors(containerColor = Color.Gray.copy(alpha = 0.8f))
-            ) {
-                Column {
-                    Image(
-                        painter = painterResource(id = imageRes),
-                        contentDescription = workoutName,
-                        modifier = Modifier.fillMaxWidth(),
-                        contentScale = ContentScale.Crop,
-                    )
+        LazyColumn (
+            modifier = Modifier.fillMaxSize()
+        ){
+            items(workouts) { (workoutName, imageRes) ->
+                Card (modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+                    .clickable { navController.navigate("workout_detail/$workoutName")},
+                    colors = CardDefaults.cardColors(containerColor = Color.Gray.copy(alpha = 0.8f))
+                ) {
+                    Column {
+                        Image(
+                            painter = painterResource(id = imageRes),
+                            contentDescription = workoutName,
+                            modifier = Modifier.fillMaxWidth(),
+                            contentScale = ContentScale.Crop,
+                        )
 
-                    Text(
-                        text = workoutName,
-                        modifier = Modifier.padding(16.dp),
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = Color.White
-                    )
+                        Text(
+                            text = workoutName,
+                            modifier = Modifier.padding(16.dp),
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = Color.White,
+                            fontFamily = FontFamily.Serif
+
+                        )
+                    }
+
                 }
 
             }
 
+
+
         }
+
+
 
     }
 }
-
 
 
 //Third Screen
