@@ -165,14 +165,18 @@ fun ExerciseScreen(navController: NavHostController, exerciseName: String?) {
         )
         Spacer(modifier = Modifier.height(16.dp))
 
+        // LazyColumn allows scroll
         LazyColumn (
             modifier = Modifier.fillMaxSize()
         ){
             items(workouts) { (workoutName, imageRes) ->
-                Card (modifier = Modifier
+                Card(modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
-                    .clickable { navController.navigate("workout_detail/$workoutName")},
+                    .clickable {
+                        // When the image is clicked, navigate to the video screen
+                        navController.navigate("video_screen")
+                    },
                     colors = CardDefaults.cardColors(containerColor = Color.Gray.copy(alpha = 0.8f))
                 ) {
                     Column {
@@ -189,22 +193,14 @@ fun ExerciseScreen(navController: NavHostController, exerciseName: String?) {
                             style = MaterialTheme.typography.bodyLarge,
                             color = Color.White,
                             fontFamily = FontFamily.Serif
-
                         )
                     }
-
                 }
-
             }
-
-
-
         }
-
-
-
     }
 }
+
 
 
 //Third Screen
@@ -241,4 +237,3 @@ fun VideoScreen() {
         )
     }
 }
-
