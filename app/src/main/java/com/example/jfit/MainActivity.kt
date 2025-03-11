@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.Image
+import coil.compose.AsyncImage
 import androidx.compose.material3.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.*
@@ -18,12 +19,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
-import androidx.navigation.compose.* // Import for navigation
+import androidx.navigation.compose.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
 import androidx.navigation.NavHostController
-// New import fro video and third screen navigation
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.border
 import android.content.Intent
@@ -31,13 +31,10 @@ import android.net.Uri
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.foundation.lazy.items
 
-
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            // Setup NavHost here to handle the navigation between screens
             val navController = rememberNavController()
 
             NavHost(navController = navController, startDestination = "home_screen") {
@@ -49,7 +46,7 @@ class MainActivity : ComponentActivity() {
                     ExerciseScreen(navController = navController, exerciseName = exerciseName)
                 }
                 composable("video_screen") {
-                    VideoScreen()
+                    VideoScreen(navController = navController)
                 }
             }
         }
@@ -58,12 +55,10 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun WorkoutApp(navController: NavHostController) {
-    // List to modify the list of exercise
     val exercises = listOf("BICEPS", "LEGS", "CHEST", "BACK", "SHOULDERS", "TRICEPS")
 
-    // Used remember Saveable instead of remember as it is deprecated in material3
     var currentExercise by rememberSaveable { mutableStateOf<String?>(null) }
-    //Third screen this button will allow to navigate to my video screen
+
     Spacer(modifier = Modifier.height(16.dp))
     Button(
         onClick = { navController.navigate("video_screen") },
@@ -72,10 +67,9 @@ fun WorkoutApp(navController: NavHostController) {
         Text("Go to Video Screen", color = Color.White)
     }
 
-    // Background Image
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(id = R.drawable.background), // Use your image
+            painter = painterResource(id = R.drawable.background),
             contentDescription = "Background Image",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
@@ -91,24 +85,21 @@ fun WorkoutApp(navController: NavHostController) {
                 style = MaterialTheme.typography.headlineLarge,
                 color = Color.White,
                 fontFamily = FontFamily.Serif,
-                fontWeight = androidx.compose.ui.text.font.FontWeight.ExtraBold
+                fontWeight = FontWeight.ExtraBold
             )
 
             Spacer(modifier = Modifier.height(30.dp))
 
-            // Used card for boxes container
             exercises.forEach { exercise ->
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(8.dp)
                         .clickable {
-                            // Navigate to the exercise screen when clicked
                             navController.navigate("exercise_screen/$exercise")
                         },
                     colors = CardDefaults.cardColors(containerColor = Color.Cyan.copy(alpha = 0.35f))
                 ) {
-                    // Added box and Alignment.Center to center the text inside the boxes
                     Box(
                         modifier = Modifier.fillMaxWidth().height(60.dp),
                         contentAlignment = Alignment.Center
@@ -144,7 +135,7 @@ fun WorkoutApp(navController: NavHostController) {
     }
 }
 
-//Second Screen
+// Second Screen
 @Composable
 fun ExerciseScreen(navController: NavHostController, exerciseName: String?) {
     val workouts = listOf(
@@ -153,30 +144,28 @@ fun ExerciseScreen(navController: NavHostController, exerciseName: String?) {
         "Inclined Dumbbell Curl" to R.drawable.inclined_dumbbell_curl,
         "Cable Biceps Curl" to R.drawable.cable_biceps_curl
     )
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp),
+
+    Column(
+        modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
-        Text(text = exerciseName ?: "Workout",
+    ) {
+        Text(
+            text = exerciseName ?: "Workout",
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.SemiBold,
             fontFamily = FontFamily.Serif
         )
         Spacer(modifier = Modifier.height(16.dp))
 
-        // LazyColumn allows scroll
-        LazyColumn (
-            modifier = Modifier.fillMaxSize()
-        ){
+        LazyColumn(modifier = Modifier.weight(1f)) {  // Adjusted for button spacing
             items(workouts) { (workoutName, imageRes) ->
-                Card(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)
-                    .clickable {
-                        // When the image is clicked, navigate to the video screen
-                        navController.navigate("video_screen")
-                    },
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                        .clickable {
+                            navController.navigate("video_screen")
+                        },
                     colors = CardDefaults.cardColors(containerColor = Color.Gray.copy(alpha = 0.8f))
                 ) {
                     Column {
@@ -198,14 +187,22 @@ fun ExerciseScreen(navController: NavHostController, exerciseName: String?) {
                 }
             }
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(
+            onClick = { navController.popBackStack() },
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+        ) {
+            Text("Return", color = Color.White)
+        }
     }
 }
 
 
-
-//Third Screen
+// Third Screen
 @Composable
-fun VideoScreen() {
+fun VideoScreen(navController: NavHostController) {
     val context = LocalContext.current
     Column(
         modifier = Modifier
@@ -214,7 +211,6 @@ fun VideoScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        // Upper half: square placeholder for the video.
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -225,15 +221,24 @@ fun VideoScreen() {
             Text("Video Placeholder", style = MaterialTheme.typography.bodyLarge)
         }
         Spacer(modifier = Modifier.height(16.dp))
-        // Middle: clickable text link that opens a YouTube video.
+
         Text(
             text = "Watch video on YouTube",
             style = MaterialTheme.typography.bodyLarge.copy(color = Color.Blue),
             modifier = Modifier.clickable {
-                val youtubeUrl = "https://www.youtube.com/watch?v=YOUR_VIDEO_ID" // Replace with your actual URL.
+                val youtubeUrl = "https://www.youtube.com/watch?v=YOUR_VIDEO_ID"
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
                 context.startActivity(intent)
             }
         )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(
+            onClick = { navController.popBackStack() },
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+        ) {
+            Text("Return", color = Color.White)
+        }
     }
 }
