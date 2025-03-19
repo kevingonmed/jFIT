@@ -263,7 +263,7 @@ fun VideoScreen(navController: NavHostController) {
                     .padding(8.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text("Imagen del músculo", color = Color.White)
+                Text("Image Muscle", color = Color.White)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -304,7 +304,7 @@ fun VideoScreen(navController: NavHostController) {
                 onClick = { navController.popBackStack() },
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
             ) {
-                Text("Regresar", color = Color.White)
+                Text("Return", color = Color.White)
             }
         }
     }
