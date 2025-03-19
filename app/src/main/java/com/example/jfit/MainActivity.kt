@@ -28,8 +28,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.border
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.foundation.background
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import com.example.jfit.ui.theme.PurpleGrey40
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -146,8 +149,11 @@ fun ExerciseScreen(navController: NavHostController, exerciseName: String?) {
     )
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
+        modifier = Modifier.fillMaxSize()
+            .background(color = Color.DarkGray)
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
+
     ) {
         Text(
             text = exerciseName ?: "Workout",
@@ -204,41 +210,109 @@ fun ExerciseScreen(navController: NavHostController, exerciseName: String?) {
 @Composable
 fun VideoScreen(navController: NavHostController) {
     val context = LocalContext.current
-    Column(
+    var isExerciseDone by remember { mutableStateOf(false) }
+
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
+            .background(color = Color.DarkGray)
             .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(1f)
-                .border(width = 2.dp, color = Color.Gray),
-            contentAlignment = Alignment.Center
-        ) {
-            Text("Video Placeholder", style = MaterialTheme.typography.bodyLarge)
-        }
-        Spacer(modifier = Modifier.height(16.dp))
+        item {
+            // Contenedor para los dos GIFs (placeholders)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                // Placeholder para el primer GIF
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(4.dp)
+                        .background(Color.Gray, shape = RoundedCornerShape(8.dp))
+                        .fillMaxHeight(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text("GIF 1", color = Color.White)
+                }
 
-        Text(
-            text = "Watch video on YouTube",
-            style = MaterialTheme.typography.bodyLarge.copy(color = Color.Blue),
-            modifier = Modifier.clickable {
-                val youtubeUrl = "https://www.youtube.com/watch?v=YOUR_VIDEO_ID"
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
-                context.startActivity(intent)
+                // Placeholder para el segundo GIF
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(4.dp)
+                        .background(Color.Gray, shape = RoundedCornerShape(8.dp))
+                        .fillMaxHeight(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text("GIF 2", color = Color.White)
+                }
             }
-        )
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-        Button(
-            onClick = { navController.popBackStack() },
-            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
-        ) {
-            Text("Return", color = Color.White)
+            // Placeholder para la imagen del músculo
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+                    .background(Color.Gray, shape = RoundedCornerShape(8.dp))
+                    .padding(8.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text("Imagen del músculo", color = Color.White)
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Texto
+            Text(
+                text = "How to do the Exercise:\n\n" +
+                        "1. Place your hands on the bar.\n" +
+                        "2. Lift the weight slowly.\n" +
+                        "3. Lower the weight in a controlled manner.\n" +
+                        "4. Repeat the movement.",
+                style = MaterialTheme.typography.bodyLarge.copy(color = Color.White),
+                modifier = Modifier.padding(8.dp)
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Botón para marcar el ejercicio como hecho
+            Button(
+                onClick = { isExerciseDone = !isExerciseDone },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (isExerciseDone) Color.Green else MaterialTheme.colorScheme.secondary
+                )
+            ) {
+                Text(
+                    text = if (isExerciseDone) "Ejercicio Hecho ✅" else "Marcar como Hecho",
+                    color = Color.White
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Botón para regresar
+            Button(
+                onClick = { navController.popBackStack() },
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+            ) {
+                Text("Regresar", color = Color.White)
+            }
         }
     }
+}
+
+@Preview(showBackground = true, name = "Preview de VideoScreen")
+@Composable
+fun PreviewVideoScreen() {
+    val navController = rememberNavController()
+    VideoScreen(navController = navController)
 }
