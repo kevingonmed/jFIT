@@ -34,6 +34,50 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import com.example.jfit.ui.theme.PurpleGrey40
 
+val workoutMap = mapOf(
+    "BICEPS" to listOf(
+        "Barbell Preacher Curl" to R.drawable.barbell_preacher_curl,
+        "Dumbbell Concentration Curl" to R.drawable.dumbbell_concentration_curl,
+        "Inclined Dumbbell Curl" to R.drawable.inclined_dumbbell_curl,
+        "Cable Biceps Curl" to R.drawable.cable_biceps_curl
+    ),
+    "LEGS" to listOf(
+        "Leg Press" to R.drawable.leg_press,
+        "Dumbbell Lunges" to R.drawable.dumbbell_lunges,
+        "Bulgarian Split Squat" to R.drawable.bulgarian_split_squat,
+        "Barbell Squat" to R.drawable.barbell_squat
+    ),
+    "CHEST" to listOf(
+        "Flat Bench Press" to R.drawable.flat_bench_press,
+        "Incline Dumbbell Press" to R.drawable.incline_dumbbell_press,
+        "Chest Fly Machine" to R.drawable.chest_fly_machine,
+        "Push Ups" to R.drawable.push_ups
+    ),
+    "BACK" to listOf(
+        "Lat Pulldown" to R.drawable.lat_pulldown,
+        "Deadlift" to R.drawable.deadlift,
+        "Seated Cable Row" to R.drawable.seated_cable_row,
+        "Pull Ups" to R.drawable.pull_ups
+    ),
+    "SHOULDERS" to listOf(
+        "Overhead Press" to R.drawable.overhead_press,
+        "Lateral Raise" to R.drawable.lateral_raise,
+        "Front Raise" to R.drawable.front_raise,
+        "Reverse Pec Deck" to R.drawable.reverse_pec_deck
+    ),
+    "TRICEPS" to listOf(
+        "Tricep Pushdown" to R.drawable.tricep_pushdown,
+        "Skull Crushers" to R.drawable.skull_crushers,
+        "Overhead Tricep Extension" to R.drawable.overhead_tricep_extension,
+        "Bench Dips" to R.drawable.bench_dips
+    )
+)
+
+
+
+
+
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -141,29 +185,26 @@ fun WorkoutApp(navController: NavHostController) {
 // Second Screen
 @Composable
 fun ExerciseScreen(navController: NavHostController, exerciseName: String?) {
-    val workouts = listOf(
-        "Barbell Preacher Curl" to R.drawable.barbell_preacher_curl,
-        "Dumbbell Concentration Curl" to R.drawable.dumbbell_concentration_curl,
-        "Inclined Dumbbell Curl" to R.drawable.inclined_dumbbell_curl,
-        "Cable Biceps Curl" to R.drawable.cable_biceps_curl
-    )
+    val workouts = workoutMap[exerciseName?.uppercase()] ?: emptyList()
 
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .background(color = Color.DarkGray)
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
-
     ) {
         Text(
             text = exerciseName ?: "Workout",
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.SemiBold,
-            fontFamily = FontFamily.Serif
+            fontFamily = FontFamily.Serif,
+            color = Color.White
         )
+
         Spacer(modifier = Modifier.height(16.dp))
 
-        LazyColumn(modifier = Modifier.weight(1f)) {  // Adjusted for button spacing
+        LazyColumn(modifier = Modifier.weight(1f)) {
             items(workouts) { (workoutName, imageRes) ->
                 Card(
                     modifier = Modifier
@@ -204,6 +245,8 @@ fun ExerciseScreen(navController: NavHostController, exerciseName: String?) {
         }
     }
 }
+
+
 
 
 // Third Screen
