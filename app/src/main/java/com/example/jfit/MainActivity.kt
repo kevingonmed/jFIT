@@ -92,9 +92,11 @@ class MainActivity : ComponentActivity() {
                     val exerciseName = backStackEntry.arguments?.getString("exerciseName")
                     ExerciseScreen(navController = navController, exerciseName = exerciseName)
                 }
-                composable("video_screen") {
-                    VideoScreen(navController = navController)
+                composable("video_screen/{workoutName}") { backStackEntry ->
+                    val workoutName = backStackEntry.arguments?.getString("workoutName")
+                    VideoScreen(navController = navController, workoutName = workoutName)
                 }
+
             }
         }
     }
@@ -211,7 +213,8 @@ fun ExerciseScreen(navController: NavHostController, exerciseName: String?) {
                         .fillMaxWidth()
                         .padding(8.dp)
                         .clickable {
-                            navController.navigate("video_screen")
+                            navController.navigate("video_screen/${workoutName}")
+
                         },
                     colors = CardDefaults.cardColors(containerColor = Color.Gray.copy(alpha = 0.8f))
                 ) {
@@ -251,7 +254,7 @@ fun ExerciseScreen(navController: NavHostController, exerciseName: String?) {
 
 // Third Screen
 @Composable
-fun VideoScreen(navController: NavHostController) {
+fun VideoScreen(navController: NavHostController, workoutName: String?) {
     val context = LocalContext.current
     var isExerciseDone by remember { mutableStateOf(false) }
 
@@ -263,14 +266,27 @@ fun VideoScreen(navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item {
-            // Contenedor para los dos GIFs (placeholders)
+            // Exercise name at the top
+            Text(
+                text = workoutName ?: "Exercise",
+                style = MaterialTheme.typography.headlineMedium.copy(
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Serif
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentWidth(Alignment.CenterHorizontally)
+                    .padding(bottom = 16.dp)
+            )
+
+            // GIF placeholders
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                // Placeholder para el primer GIF
                 Box(
                     modifier = Modifier
                         .weight(1f)
@@ -282,7 +298,6 @@ fun VideoScreen(navController: NavHostController) {
                     Text("GIF 1", color = Color.White)
                 }
 
-                // Placeholder para el segundo GIF
                 Box(
                     modifier = Modifier
                         .weight(1f)
@@ -357,5 +372,6 @@ fun VideoScreen(navController: NavHostController) {
 @Composable
 fun PreviewVideoScreen() {
     val navController = rememberNavController()
-    VideoScreen(navController = navController)
+    VideoScreen(navController = navController, workoutName = "Barbell Preacher Curl")
 }
+
