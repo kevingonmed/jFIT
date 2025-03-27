@@ -312,7 +312,7 @@ fun VideoScreen(navController: NavHostController, workoutName: String?) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Placeholder para la imagen del músculo
+            // Placeholder for muscle image.
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -326,7 +326,7 @@ fun VideoScreen(navController: NavHostController, workoutName: String?) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Texto
+            // Text
             Text(
                 text = "How to do the Exercise:\n\n" +
                         "1. Place your hands on the bar.\n" +
@@ -339,7 +339,7 @@ fun VideoScreen(navController: NavHostController, workoutName: String?) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Botón para marcar el ejercicio como hecho
+            // Button to mark exercise as done.
             Button(
                 onClick = { isExerciseDone = !isExerciseDone },
                 colors = ButtonDefaults.buttonColors(
@@ -347,7 +347,7 @@ fun VideoScreen(navController: NavHostController, workoutName: String?) {
                 )
             ) {
                 Text(
-                    text = if (isExerciseDone) "Ejercicio Hecho ✅" else "Marcar como Hecho",
+                    text = if (isExerciseDone) "Exercise Done ✅" else "Mark as completed",
                     color = Color.White
                 )
             }
@@ -357,7 +357,7 @@ fun VideoScreen(navController: NavHostController, workoutName: String?) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Botón para regresar
+            // Return Button.
             Button(
                 onClick = { navController.popBackStack() },
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
