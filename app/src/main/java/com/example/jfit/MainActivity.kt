@@ -426,8 +426,13 @@ fun WorkoutApp(navController: NavHostController) {
 
             Spacer(modifier = Modifier.height(60.dp))
 
+
+            // Randomly open a workout to start
             Button(
-                onClick = { currentExercise = muscleGroups.random() },
+                onClick = {
+                    val randomExercise = workoutMap.values.flatten().random()
+                    navController.navigate("video_screen?workoutName=${randomExercise.name}")
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
             ) {
                 Text(
