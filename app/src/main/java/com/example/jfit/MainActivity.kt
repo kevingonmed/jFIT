@@ -393,20 +393,34 @@ fun ExerciseScreen(navController: NavHostController, exerciseName: String?) {
 
 @Composable
 fun VideoScreen(navController: NavHostController, workoutName: String?) {
-    // Find the exercise with the matching name
+    // Find the exercise matching the name
     val selectedExercise = workoutMap.values.flatten().find { it.name == workoutName }
-    var isExerciseDone by remember { mutableStateOf(false) }
+    var isExerciseDone by rememberSaveable { mutableStateOf(false) }
 
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.DarkGray)
+            .background(Color.DarkGray)
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item {
+            // Display Exercise Name at the top
+            Text(
+                text = selectedExercise?.name ?: "Exercise",
+                style = MaterialTheme.typography.headlineMedium.copy(
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Serif
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentWidth(Alignment.CenterHorizontally)
+                    .padding(bottom = 16.dp)
+            )
+
+            // Display the two GIFs side by side
             if (selectedExercise != null) {
-                // Row displaying two GIFs side by side
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -415,7 +429,7 @@ fun VideoScreen(navController: NavHostController, workoutName: String?) {
                 ) {
                     AsyncImage(
                         model = selectedExercise.gifUrl1,
-                        contentDescription = "Exercise GIF 1",
+                        contentDescription = "GIF 1",
                         modifier = Modifier
                             .weight(1f)
                             .padding(4.dp)
@@ -426,7 +440,7 @@ fun VideoScreen(navController: NavHostController, workoutName: String?) {
 
                     AsyncImage(
                         model = selectedExercise.gifUrl2,
-                        contentDescription = "Exercise GIF 2",
+                        contentDescription = "GIF 2",
                         modifier = Modifier
                             .weight(1f)
                             .padding(4.dp)
@@ -438,17 +452,20 @@ fun VideoScreen(navController: NavHostController, workoutName: String?) {
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Display the static image for the exercise
+                // Displays static image of the exercise
                 Image(
                     painter = painterResource(id = selectedExercise.imageRes),
                     contentDescription = "Exercise Image",
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(200.dp)
+                        .background(Color.Gray, shape = RoundedCornerShape(8.dp)),
                     contentScale = ContentScale.Crop
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Instructions for the exercise
+                // Exercise Instructions
                 Text(
                     text = "How to do ${selectedExercise.name}:\n\n" +
                             "1. Get into position.\n" +
@@ -459,12 +476,16 @@ fun VideoScreen(navController: NavHostController, workoutName: String?) {
                     modifier = Modifier.padding(8.dp)
                 )
             } else {
-                Text("Exercise not found", color = Color.White)
+                Text(
+                    text = "Exercise not found.",
+                    color = Color.White,
+                    modifier = Modifier.padding(16.dp)
+                )
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Button to mark exercise as completed
+            // Button to mark exercise as Completed Button
             Button(
                 onClick = { isExerciseDone = !isExerciseDone },
                 colors = ButtonDefaults.buttonColors(
@@ -479,7 +500,7 @@ fun VideoScreen(navController: NavHostController, workoutName: String?) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Return button
+            //  Return Button
             Button(
                 onClick = { navController.popBackStack() },
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
@@ -489,6 +510,7 @@ fun VideoScreen(navController: NavHostController, workoutName: String?) {
         }
     }
 }
+
 
 @Preview(showBackground = true, name = "Preview VideoScreen")
 @Composable
