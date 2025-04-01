@@ -34,7 +34,10 @@ data class Exercise(
     val name: String,
     val imageRes: Int,
     val gifUrl1: String,
-    val gifUrl2: String
+    val gifUrl2: String,
+    // Added new property to display specific instruction for each exercise
+    val instructions: String
+
 )
 
 // Workout map using the Exercise data class for each muscle group
@@ -44,25 +47,46 @@ val workoutMap: Map<String, List<Exercise>> = mapOf(
             name = "Barbell Preacher Curl",
             imageRes = R.drawable.barbell_preacher_curl,
             gifUrl1 = "https://www.inspireusafoundation.org/wp-content/uploads/2022/03/ez-bar-preacher-curl.gif",
-            gifUrl2 = "https://www.garagegymreviews.com/wp-content/uploads/EZ-bar-preacher-curl.gif"
+            gifUrl2 = "https://www.garagegymreviews.com/wp-content/uploads/EZ-bar-preacher-curl.gif",
+            instructions = """
+            1. Sit on the preacher bench and grip the barbell with an underhand grip.
+            2. Slowly curl the barbell toward your shoulders.
+            3. Squeeze at the top, then lower it slowly.
+            4. Repeat for desired reps.
+        """.trimIndent()
         ),
         Exercise(
             name = "Dumbbell Concentration Curl",
             imageRes = R.drawable.dumbbell_concentration_curl,
             gifUrl1 = "https://archive.prosto.academy/uploads/images/gallery/2023-07/54ccfHau7wxm9Ije-2-2-4.gif",
-            gifUrl2 = "https://app.gogain.me/wp-content/uploads/2023/10/concentration_curls_dumbbell.gif"
+            gifUrl2 = "https://app.gogain.me/wp-content/uploads/2023/10/concentration_curls_dumbbell.gif",
+            instructions = """
+            1. Sit on a bench with your elbow resting on your inner thigh.
+            2. Curl the dumbbell while keeping your upper arm still.
+            3. Pause and squeeze at the top, then lower slowly.
+        """.trimIndent()
         ),
         Exercise(
             name = "Inclined Dumbbell Curl",
             imageRes = R.drawable.inclined_dumbbell_curl,
             gifUrl1 = "https://framerusercontent.com/images/yUIzv64bZNcoNFLjwOGQU0tH4E.gif",
-            gifUrl2 = "https://fitliferegime.com/wp-content/uploads/2023/08/How-To-Do-Spider-Curl.gif"
+            gifUrl2 = "https://fitliferegime.com/wp-content/uploads/2023/08/How-To-Do-Spider-Curl.gif",
+            instructions = """
+            1. Sit on an incline bench with arms hanging down.
+            2. Curl the dumbbells simultaneously or alternately.
+            3. Squeeze at the top and lower slowly.
+        """.trimIndent()
         ),
         Exercise(
             name = "Cable Biceps Curl",
             imageRes = R.drawable.cable_biceps_curl,
             gifUrl1 = "https://burnfit.io/wp-content/uploads/2023/11/CABLE_CURL.gif",
-            gifUrl2 = "https://www.inspireusafoundation.org/wp-content/uploads/2022/12/cable-drag-curl.gif"
+            gifUrl2 = "https://www.inspireusafoundation.org/wp-content/uploads/2022/12/cable-drag-curl.gif",
+            instructions = """
+            1. Stand at a cable station with an underhand grip on the bar.
+            2. Curl the bar toward your shoulders.
+            3. Keep your elbows tight to your sides throughout.
+        """.trimIndent()
         )
     ),
     "LEGS" to listOf(
@@ -70,25 +94,45 @@ val workoutMap: Map<String, List<Exercise>> = mapOf(
             name = "Leg Press",
             imageRes = R.drawable.leg_press,
             gifUrl1 = "https://th.bing.com/th/id/OIP.-vhsPNmpUVJ93zUpYlYW-gHaHa?rs=1&pid=ImgDetMain",
-            gifUrl2 = "https://media2.giphy.com/media/7D32x6UCJEkdxYyE0F/200.gif"
+            gifUrl2 = "https://media2.giphy.com/media/7D32x6UCJEkdxYyE0F/200.gif",
+            instructions = """
+            1. Sit on the leg press machine with feet shoulder-width apart.
+            2. Push the platform up, then lower it until your knees are at 90°.
+            3. Push it back up without locking your knees.
+        """.trimIndent()
         ),
         Exercise(
             name = "Dumbbell Lunges",
             imageRes = R.drawable.dumbbell_lunges,
             gifUrl1 = "https://hips.hearstapps.com/hmg-prod/images/workouts/2016/03/dumbbelllunge-1457044372.gif?resize=1120:*",
-            gifUrl2 = "https://liftmanual.com/wp-content/uploads/2023/04/dumbbell-walking-lunges.gif"
+            gifUrl2 = "https://liftmanual.com/wp-content/uploads/2023/04/dumbbell-walking-lunges.gif",
+            instructions = """
+            1. Stand upright holding dumbbells by your sides.
+            2. Step forward and lower your hips until both knees are bent at 90°.
+            3. Push back up and repeat with the other leg.
+        """.trimIndent()
         ),
         Exercise(
             name = "Bulgarian Split Squat",
             imageRes = R.drawable.bulgarian_split_squat,
             gifUrl1 = "https://www.inspireusafoundation.org/wp-content/uploads/2023/08/deficit-bulgarian-split-squat.gif",
-            gifUrl2 = "https://i.pinimg.com/originals/57/e3/8e/57e38edfbdd8d82192356411d2414c09.gif"
+            gifUrl2 = "https://i.pinimg.com/originals/57/e3/8e/57e38edfbdd8d82192356411d2414c09.gif",
+            instructions = """
+            1. Place one foot behind you on a bench.
+            2. Lower your back knee toward the ground, keeping your front knee over your ankle.
+            3. Push back up through the front leg.
+        """.trimIndent()
         ),
         Exercise(
             name = "Barbell Squat",
             imageRes = R.drawable.barbell_squat,
             gifUrl1 = "https://www.inspireusafoundation.org/wp-content/uploads/2022/10/negative-squat.gif",
-            gifUrl2 = "https://th.bing.com/th/id/OIP.wMKX6YaTUj0eHNKVOl_SFgHaHa?rs=1&pid=ImgDetMain"
+            gifUrl2 = "https://th.bing.com/th/id/OIP.wMKX6YaTUj0eHNKVOl_SFgHaHa?rs=1&pid=ImgDetMain",
+            instructions = """
+            1. Stand with the barbell on your shoulders, feet shoulder-width apart.
+            2. Lower your body by bending your knees and hips.
+            3. Drive back up through your heels to the starting position.
+        """.trimIndent()
         )
     ),
     "CHEST" to listOf(
@@ -96,25 +140,45 @@ val workoutMap: Map<String, List<Exercise>> = mapOf(
             name = "Flat Bench Press",
             imageRes = R.drawable.flat_bench_press,
             gifUrl1 = "https://th.bing.com/th/id/R.8e34bb41d30ceb2f65aa7873a87a4371?rik=mO0G25RGfKf61w&pid=ImgRaw&r=0",
-            gifUrl2 = "https://149874912.v2.pressablecdn.com/wp-content/uploads/2021/09/bench-press.gif"
+            gifUrl2 = "https://149874912.v2.pressablecdn.com/wp-content/uploads/2021/09/bench-press.gif",
+            instructions = """
+            1. Lie flat on the bench and grip the bar slightly wider than shoulder-width.
+            2. Lower the bar to your chest slowly.
+            3. Push it back up to full extension.
+        """.trimIndent()
         ),
         Exercise(
             name = "Incline Dumbbell Press",
             imageRes = R.drawable.incline_dumbbell_press,
             gifUrl1 = "https://th.bing.com/th/id/OIP.EDO7IAySGRy-BGpI5-kJCQHaHa?rs=1&pid=ImgDetMain",
-            gifUrl2 = "https://burnfit.io/wp-content/uploads/2023/11/BB_INC_PRESS.gif"
+            gifUrl2 = "https://burnfit.io/wp-content/uploads/2023/11/BB_INC_PRESS.gif",
+            instructions = """
+            1. Lie on an incline bench holding dumbbells.
+            2. Press the dumbbells up above your chest.
+            3. Lower slowly until your elbows are at 90°, then push up again.
+        """.trimIndent()
         ),
         Exercise(
             name = "Chest Fly Machine",
             imageRes = R.drawable.chest_fly_machine,
             gifUrl1 = "https://th.bing.com/th/id/OIP.LFblfA1EyRz-sLWPuqAbiwHaHa?rs=1&pid=ImgDetMain",
-            gifUrl2 = "https://i.makeagif.com/media/9-28-2015/-z-AFG.gif"
+            gifUrl2 = "https://i.makeagif.com/media/9-28-2015/-z-AFG.gif",
+            instructions = """
+            1. Sit in the fly machine with arms extended.
+            2. Bring the handles together in front of your chest.
+            3. Slowly return to the start and repeat.
+        """.trimIndent()
         ),
         Exercise(
             name = "Push Ups",
             imageRes = R.drawable.push_ups,
             gifUrl1 = "https://th.bing.com/th/id/OIP.7EIPMBoNcylXVcRebA5QSwHaE7?rs=1&pid=ImgDetMain",
-            gifUrl2 = "https://th.bing.com/th/id/R.9b0fe771b589223c7a3cb002c5868c5f?rik=38ctSmQxs0IHvg&riu=http%3a%2f%2fwww.fuelrunning.com%2farticlecontent%2ffitness%2fhow-to-do-the-perfect-push-up%2fPerfectPushup.gif&ehk=kUSRx2OeHL9GNLk0K8%2bxqjwXZDjuqHPe5Jet224WHBU%3d&risl=&pid=ImgRaw&r=0"
+            gifUrl2 = "https://th.bing.com/th/id/R.9b0fe771b589223c7a3cb002c5868c5f?rik=38ctSmQxs0IHvg&riu=http%3a%2f%2fwww.fuelrunning.com%2farticlecontent%2ffitness%2fhow-to-do-the-perfect-push-up%2fPerfectPushup.gif&ehk=kUSRx2OeHL9GNLk0K8%2bxqjwXZDjuqHPe5Jet224WHBU%3d&risl=&pid=ImgRaw&r=0",
+            instructions = """
+            1. Start in a plank position with hands slightly wider than shoulders.
+            2. Lower your chest to the floor.
+            3. Push back up to full arm extension.
+        """.trimIndent()
         )
     ),
     "BACK" to listOf(
@@ -122,25 +186,45 @@ val workoutMap: Map<String, List<Exercise>> = mapOf(
             name = "Lat Pulldown",
             imageRes = R.drawable.lat_pulldown,
             gifUrl1 = "https://www.inspireusafoundation.org/wp-content/uploads/2023/11/supinated-lat-pulldown.gif",
-            gifUrl2 = "https://fitnessvolt.com/wp-content/uploads/2023/09/wide-grip-lat-pulldown.gif"
+            gifUrl2 = "https://fitnessvolt.com/wp-content/uploads/2023/09/wide-grip-lat-pulldown.gif",
+            instructions = """
+            1. Sit and grab the bar with a wide grip.
+            2. Pull the bar down to your upper chest.
+            3. Slowly return to the starting position.
+        """.trimIndent()
         ),
         Exercise(
             name = "Deadlift",
             imageRes = R.drawable.deadlift,
             gifUrl1 = "https://th.bing.com/th/id/R.6c3bfe8213788083161dfe66db06947c?rik=bc%2b6JjEJnpoLoA&pid=ImgRaw&r=0",
-            gifUrl2 = "https://cdn.shopify.com/s/files/1/0449/8453/3153/files/barbell-deadlift_600x600.gif?v=1690860568"
+            gifUrl2 = "https://cdn.shopify.com/s/files/1/0449/8453/3153/files/barbell-deadlift_600x600.gif?v=1690860568",
+            instructions = """
+            1. Stand with feet shoulder-width apart and grip the bar.
+            2. Keep your back straight and lift the bar by extending your hips and knees.
+            3. Lower the bar back to the floor in control.
+        """.trimIndent()
         ),
         Exercise(
             name = "Seated Cable Row",
             imageRes = R.drawable.seated_cable_row,
             gifUrl1 = "https://th.bing.com/th/id/OIP.rWdSZTQ3PZLF-DDNOeKLtgHaHa?rs=1&pid=ImgDetMain",
-            gifUrl2 = "https://th.bing.com/th/id/OIP.8aO_KirHF24pbBjBVOxVpAAAAA?rs=1&pid=ImgDetMain"
+            gifUrl2 = "https://th.bing.com/th/id/OIP.8aO_KirHF24pbBjBVOxVpAAAAA?rs=1&pid=ImgDetMain",
+            instructions = """
+            1. Sit with feet braced and grasp the cable row handle.
+            2. Pull the handle toward your waist while squeezing your back.
+            3. Return to starting position.
+        """.trimIndent()
         ),
         Exercise(
             name = "Pull Ups",
             imageRes = R.drawable.pull_ups,
             gifUrl1 = "https://fitliferegime.com/wp-content/uploads/2024/03/Archer-Pull-Up.gif",
-            gifUrl2 = "https://media0.giphy.com/media/dInGm95ZDWWjelaHRp/200w.gif?cid=82a1493bu24q6qtf3r37a7fuwarxrl7ci4w5bp43wq1mcc90&ep=v1_gifs_related&rid=200w.gif&ct=g"
+            gifUrl2 = "https://media0.giphy.com/media/dInGm95ZDWWjelaHRp/200w.gif?cid=82a1493bu24q6qtf3r37a7fuwarxrl7ci4w5bp43wq1mcc90&ep=v1_gifs_related&rid=200w.gif&ct=g",
+            instructions = """
+            1. Hang from the bar with an overhand grip.
+            2. Pull your chin above the bar.
+            3. Lower yourself down slowly.
+        """.trimIndent()
         )
     ),
     "SHOULDERS" to listOf(
@@ -148,25 +232,45 @@ val workoutMap: Map<String, List<Exercise>> = mapOf(
             name = "Overhead Press",
             imageRes = R.drawable.overhead_press,
             gifUrl1 = "https://th.bing.com/th/id/R.81f1d1557442ad58e9be2bb7cb207161?rik=bZwG1MOXTAhEVA&pid=ImgRaw&r=0",
-            gifUrl2 = "https://th.bing.com/th/id/OIP.QVOdww5MgDw6Uz_j-Cte1AHaHa?rs=1&pid=ImgDetMain"
+            gifUrl2 = "https://th.bing.com/th/id/OIP.QVOdww5MgDw6Uz_j-Cte1AHaHa?rs=1&pid=ImgDetMain",
+            instructions = """
+            1. Stand with the barbell at shoulder height.
+            2. Press it overhead until arms are fully extended.
+            3. Lower it back down under control.
+        """.trimIndent()
         ),
         Exercise(
             name = "Lateral Raise",
             imageRes = R.drawable.lateral_raise,
             gifUrl1 = "https://th.bing.com/th/id/OIP.6iZin3w2TnX2JtfIoSsg6AHaHa?rs=1&pid=ImgDetMain",
-            gifUrl2 = "https://cdn.jefit.com/assets/img/exercises/gifs/1140.gif"
+            gifUrl2 = "https://cdn.jefit.com/assets/img/exercises/gifs/1140.gif",
+            instructions = """
+            1. Hold dumbbells by your sides.
+            2. Raise arms out to the sides until shoulder height.
+            3. Lower slowly and repeat.
+        """.trimIndent()
         ),
         Exercise(
             name = "Front Raise",
             imageRes = R.drawable.front_raise,
             gifUrl1 = "https://livelifehealthily.com/wp-content/uploads/2023/05/plate-front-raise.gif",
-            gifUrl2 = "https://www.spotebi.com/wp-content/uploads/2014/10/dumbbell-front-raise-exercise-illustration.gif"
+            gifUrl2 = "https://www.spotebi.com/wp-content/uploads/2014/10/dumbbell-front-raise-exercise-illustration.gif",
+            instructions = """
+            1. Hold dumbbells in front of your thighs.
+            2. Raise one or both arms straight in front of you to shoulder level.
+            3. Lower and repeat.
+        """.trimIndent()
         ),
         Exercise(
             name = "Reverse Pec Deck",
             imageRes = R.drawable.reverse_pec_deck,
             gifUrl1 = "https://cdn.jefit.com/assets/img/exercises/gifs/1047.gif",
-            gifUrl2 = "https://i.pinimg.com/originals/f1/fd/36/f1fd36181f97d4938e3fb4cc501bde53.gif"
+            gifUrl2 = "https://i.pinimg.com/originals/f1/fd/36/f1fd36181f97d4938e3fb4cc501bde53.gif",
+            instructions = """
+            1. Sit facing the pec deck machine.
+            2. With arms extended, pull handles outward.
+            3. Return with control and repeat.
+        """.trimIndent()
         )
     ),
     "TRICEPS" to listOf(
@@ -174,25 +278,46 @@ val workoutMap: Map<String, List<Exercise>> = mapOf(
             name = "Tricep Pushdown",
             imageRes = R.drawable.tricep_pushdown,
             gifUrl1 = "https://th.bing.com/th/id/OIP.6jfOU-Krv2xlyE45KRMyfAHaHa?rs=1&pid=ImgDetMain",
-            gifUrl2 = "https://www.inspireusafoundation.org/wp-content/uploads/2022/03/cable-tricep-overhead-extensions.gif"
+            gifUrl2 = "https://www.inspireusafoundation.org/wp-content/uploads/2022/03/cable-tricep-overhead-extensions.gif",
+            instructions = """
+            1. Stand at the cable station and grip the bar with an overhand grip.
+            2. Push the bar down while keeping your elbows fixed.
+            3. Extend fully, then return slowly.
+        """.trimIndent()
         ),
         Exercise(
             name = "Skull Crushers",
             imageRes = R.drawable.skull_crushers,
             gifUrl1 = "https://www.verywellfit.com/thmb/_nPcYa4MjZ-Vcg1iqFS2bSRiEL0=/1100x0/filters:no_upscale():max_bytes(150000):strip_icc()/94-3498313--Lying-triceps-extenGIF-0d0e624392d74f9897a698fbe5c4ea3b.gif",
-            gifUrl2 = "https://fitliferegime.com/wp-content/uploads/2023/09/Incline-Barbell-Skull-Crusher.gif"
+            gifUrl2 = "https://fitliferegime.com/wp-content/uploads/2023/09/Incline-Barbell-Skull-Crusher.gif",
+            instructions = """
+            1. Lie on a bench with an EZ-bar extended over your chest.
+            2. Lower the bar toward your forehead by bending your elbows.
+            3. Extend your arms back to the top.
+        """.trimIndent()
+
         ),
         Exercise(
             name = "Overhead Tricep Extension",
             imageRes = R.drawable.overhead_tricep_extension,
             gifUrl1 = "https://legionathletics.com/wp-content/uploads/2022/08/Single-Arm-Overhead-Triceps-Extension-1.jpg",
-            gifUrl2 = "https://th.bing.com/th/id/OIP.0GuvZOCR3_uiDJw4XsaiawAAAA?rs=1&pid=ImgDetMain"
+            gifUrl2 = "https://th.bing.com/th/id/OIP.0GuvZOCR3_uiDJw4XsaiawAAAA?rs=1&pid=ImgDetMain",
+            instructions = """
+            1. Hold a dumbbell with both hands overhead.
+            2. Lower it behind your head by bending your elbows.
+            3. Extend your arms back to the top.
+        """.trimIndent()
         ),
         Exercise(
             name = "Bench Dips",
             imageRes = R.drawable.bench_dips,
             gifUrl1 = "https://cdn.shopify.com/s/files/1/0449/8453/3153/files/Bench_Dips.gif?v=1722411995",
-            gifUrl2 = "https://fitliferegime.com/wp-content/uploads/2023/06/Tricep-Bench-Dip.gif"
+            gifUrl2 = "https://fitliferegime.com/wp-content/uploads/2023/06/Tricep-Bench-Dip.gif",
+            instructions = """
+            1. Place hands on a bench behind you, legs extended.
+            2. Lower your body by bending your elbows.
+            3. Push up until arms are straight.
+        """.trimIndent()
         )
     )
 )
@@ -467,11 +592,7 @@ fun VideoScreen(navController: NavHostController, workoutName: String?) {
 
                 // Exercise Instructions
                 Text(
-                    text = "How to do ${selectedExercise.name}:\n\n" +
-                            "1. Get into position.\n" +
-                            "2. Execute the movement with control.\n" +
-                            "3. Focus on muscle contraction.\n" +
-                            "4. Breathe steadily.",
+                    text = "How to do ${selectedExercise.name}:\n\n${selectedExercise.instructions}",
                     style = MaterialTheme.typography.bodyLarge.copy(color = Color.White),
                     modifier = Modifier.padding(8.dp)
                 )
